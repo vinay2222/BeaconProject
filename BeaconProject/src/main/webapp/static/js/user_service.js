@@ -1,0 +1,58 @@
+'use strict';
+
+App.factory('UserService', ['$http', '$q', function($http, $q){
+
+	return {
+		
+			fetchAllUsers: function() {
+					return $http.get('http://localhost:8181/mvc/user/patients')
+							.then(
+									function(response){
+										return response.data;
+									}, 
+									function(errResponse){
+										console.error('Error while fetching users');
+										return $q.reject(errResponse);
+									}
+							);
+			},
+		    
+		    createUser: function(user){
+					return $http.post('http://localhost:8181/mvc/user/add', user)
+							.then(
+									function(response){
+										return response.data;
+									}, 
+									function(errResponse){
+										console.error('Error while creating user');
+										return $q.reject(errResponse);
+									}
+							);
+		    },
+		    
+		    updateUser: function(user, id){
+					return $http.put('http://localhost:8181/mvc/user/add'+id, user)
+							.then(
+									function(response){
+										return response.data;
+									}, 
+									function(errResponse){
+										console.error('Error while updating user');
+										return $q.reject(errResponse);
+									}
+							);
+			},
+		    
+			deleteUser: function(id){
+				$http({method: 'DELETE',url: 'http://localhost:8081/Spring4MVCAngularJSExample/user/'+id}).success(
+				function(data,status){
+					return data;
+				}		
+			
+				
+							);
+			}
+		
+	};
+
+}]);
